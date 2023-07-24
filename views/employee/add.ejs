@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include('../partials/head') %>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include('../partials/topbar') %>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            
+                            <% if(message.success) { %>
+                                <div id="message" class="alert alert-success" role="alert">
+                                <%= message.success %>
+                                </div>
+                        <% } else if(message.error) { %>
+                            <div id="message" class="alert alert-danger" role="alert">
+                                <%= message.error %>
+                                </div>
+                        <% } %>
+                          
+                            <form method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">T.C No</label>
+                                            <input type="text" name="tckn" maxlength="11" class="form-control">
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">First Name</label>
+                                            <input type="text" name="firstName" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Middle Name</label>
+                                            <input type="text" name="middleName" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                                            <input type="text" name="lastName" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Birthday</label>
+                                            <input type="date" name="dateOfBirth" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">E-mail</label>
+                                            <input type="email" name="email" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Phone</label>
+                                            <input type="text" name="phone" maxlength="11" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Address</label>
+                                            <input type="text" name="address" class="form-control">
+                                          </div>
+                                    </div>
+                                   
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select name="gender" class="form-control" id="exampleFormControlSelect1">
+                                                <option value="-1">Lütfen Seçiniz</option>
+                                                <option value="1">Erkek</option>
+                                                <option value="2">Kadın</option>
+                                                <option value="3">Diğer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Salary</label>
+                                            <input type="text" name="salary" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Permission</label>
+                                            <input type="text" name="permission" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="roleId" class="form-label">Role</label>
+                                            <select name="roleId" class="form-control" id="exampleFormControlSelect1">      
+                                                <% roles.forEach(role => { %>
+                                                    <option value="<%= role.id %>"><%= role.roleName %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="departmentId" class="form-label">Department</label>
+                                            <select name="departmentId" class="form-control" id="exampleFormControlSelect1">      
+                                                <% departments.forEach(department => { %>
+                                                    <option value="<%= department.id %>"><%= department.deptName %></option>
+                                                <% }) %>
+                                            </select>   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="serviceId" class="form-label">Service</label>
+                                            <select name="serviceId" class="form-control" id="exampleFormControlSelect1">      
+                                                <% services.forEach(service => { %>
+                                                    <option value="<%= service.id %>"><%= service.numberPlate %></option>
+                                                <% }) %>
+                                            </select>   
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Company Start Date</label>
+                                            <input type="date" name="startDate" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Company End Date</label>
+                                            <input type="date" name="endDate" class="form-control">
+                                          </div>
+                                    </div>
+                                   
+                                </div>
+                             
+                                <button type="submit" class="btn btn-primary float-right">Save Employee</button>
+                              </form>
+                        </div>
+                      </div>
+
+                  
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <%- include('../partials/modal') %>
+
+    <%- include('../partials/script') %>
+
+
+</body>
+
+</html>

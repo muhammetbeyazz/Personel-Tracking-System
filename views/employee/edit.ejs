@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include('../partials/head') %>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+        <script src="../../helpers/dateFormatter.js"></script>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include('../partials/topbar') %>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            
+                            <% if(message.success) { %>
+                                <div id="message" class="alert alert-success" role="alert">
+                                <%= message.success %>
+                                </div>
+                        <% } else if(message.error) { %>
+                            <div id="message" class="alert alert-danger" role="alert">
+                                <%= message.error %>
+                                </div>
+                        <% } %>
+                          
+                            <form method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">T.C No</label>
+                                            <input type="text" name="tckn" maxlength="11" value="<%= employee.tckn %>" class="form-control">
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">First Name</label>
+                                            <input type="text" name="firstName" value="<%= employee.firstName %>" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Middle Name</label>
+                                            <input type="text" name="middleName" value="<%= employee.middleName %>" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                                            <input type="text" name="lastName" value="<%= employee.lastName%>" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Birthday</label>
+                                            <input type="date" name="dateOfBirth" value="<%= new Date(employee.dateOfBirth).toISOString().split('T')[0] %>" class="form-control">                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">E-mail</label>
+                                            <input type="email" name="email" value="<%= employee && employee.email ? employee.email : '' %>" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Phone</label>
+                                            <input type="text" name="phone" maxlength="11" value="<%= employee && employee.phone ? employee.phone : '' %>" class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Address</label>
+                                            <input type="text" name="address"  value="<%= employee && employee.address ? employee.address : '' %>" class="form-control">
+                                          </div>
+                                    </div>
+                                   
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="mb-3">
+                                      <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Gender</label>
+                                        <select name="gender" class="form-control" id="exampleFormControlSelect1">
+                                          <option value="1" <%= (employee.gender === 1) ? "selected" : "" %>>Erkek</option>
+                                          <option value="2" <%= (employee.gender === 2) ? "selected" : "" %>>Kadın</option>
+                                          <option value="3" <%= (employee.gender === 3) ? "selected" : "" %>>Diğer</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Salary</label>
+                                            <input type="text" name="salary" value="<%= employee && employee.salary ? employee.salary : '' %>"  class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Permission</label>
+                                            <input type="text" name="permission" value="<%= employee && employee.permission ? employee.permission : '' %>"  class="form-control">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                          <label for="roleId" class="form-label">Role</label>
+                                          <select name="roleId" class="form-control" id="exampleFormControlSelect1">
+                                            <% roles.forEach(role => { %>
+                                              <option value="<%= role.id %>" <%= (role.id === employee.roleId) ? "selected" : "" %>><%= role.roleName %></option>
+                                            <% }) %>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      
+                                    
+                                      <div class="col-md-4">
+                                        <div class="mb-3">
+                                          <label for="departmentId" class="form-label">Department</label>
+                                          <select name="departmentId" class="form-control" id="exampleFormControlSelect1">
+                                            <% departments.forEach(department => { %>
+                                              <option value="<%= department.id %>" <%= (department.id === employee.departmentId) ? "selected" : "" %>><%= department.deptName %></option>
+                                            <% }) %>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="col-md-4">
+                                        <div class="mb-3">
+                                          <label for="serviceId" class="form-label">Service</label>
+                                          <select name="serviceId" class="form-control" id="exampleFormControlSelect1">
+                                            <% services.forEach(service => { %>
+                                              <option value="<%= service.id %>" <%= (service.id === employee.serviceId) ? "selected" : "" %>><%= service.numberPlate %></option>
+                                            <% }) %>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      
+                                </div>
+
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                          <label for="exampleInputEmail1" class="form-label">Company Start Date</label>
+                                          <input type="date" name="startDate" value="<%= new Date(employee.startDate).toISOString().split('T')[0] %>" class="form-control">
+                                        </div>
+                                      </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Company End Date</label>
+                                            <input type="date" name="endDate" value="<%= new Date(employee.endDate).toISOString().split('T')[0] %>" class="form-control">
+                                          </div>
+                                    </div>
+                                   
+                                </div>
+                             
+                                <button type="submit" class="btn btn-primary float-right">Update Employee</button>
+                              </form>
+                        </div>
+                      </div>
+
+                  
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <%- include('../partials/modal') %>
+
+    <%- include('../partials/script') %>
+
+
+</body>
+
+</html>

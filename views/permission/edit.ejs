@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include('../partials/head') %>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include('../partials/topbar') %>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            
+                            <% if(message.success) { %>
+                                <div id="message" class="alert alert-success" role="alert">
+                                <%= message.success %>
+                                </div>
+                            <% } else if(message.error) { %>
+                                <div id="message" class="alert alert-danger" role="alert">
+                                    <%= message.error %>
+                                    </div>
+                            <% } %>
+                          
+                            <form method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                          <div class="form-group">
+                                            <label for="exampleFormControlSelect1">Employee</label>
+                                            <select name="tckn" class="form-control" id="exampleFormControlSelect1">
+                                              <% employees.forEach(employee => { %>
+                                                <option value="<%= employee.tckn %>" <%= (employee.tckn === permission.tckn) ? "selected" : "" %>><%= employee.tckn + ' - ' +  employee.firstName + ' ' + employee.middleName + ' ' + employee.lastName %></option>
+                                              <% }) %>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                          <div class="form-group">
+                                            <label for="exampleFormControlSelect1">Permission Type</label>
+                                            <select name="permType" class="form-control" id="exampleFormControlSelect1">
+                                              <option value="1" <%= (permission.permType === 1) ? "selected" : "" %>>Annual Leave</option>
+                                              <option value="2" <%= (permission.permType === 2) ? "selected" : "" %>>General Permission</option>
+                                              <option value="3" <%= (permission.permType === 3) ? "selected" : "" %>>Sick Leave</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                
+                                    
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Permission Start Date</label>
+                                            <input type="date" name="permStartDate" value="<%= new Date(permission.permStartDate).toISOString().split('T')[0] %>" class="form-control">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Permission End Date</label>
+                                            <input type="date" name="permEndDate" value="<%= new Date(permission.permEndDate).toISOString().split('T')[0] %>" class="form-control">
+                                          </div>
+                                    </div>
+                                   
+                                </div>
+                             
+                                <button type="submit" class="btn btn-primary float-right">Update Permission</button>
+                              </form>
+                        </div>
+                      </div>
+
+                  
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <%- include('../partials/modal') %>
+
+    <%- include('../partials/script') %>
+
+
+</body>
+
+</html>

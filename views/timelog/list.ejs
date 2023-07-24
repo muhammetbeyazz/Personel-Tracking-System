@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include('../partials/head') %>
+    <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar') %>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include('../partials/topbar') %>
+                <!-- End of Topbar -->
+               
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            
+                        <% if(message.success) { %>
+                            <div id="message" class="alert alert-success" role="alert">
+                              <%= message.success %>
+                            </div>
+                      <% } else if(message.error) { %>
+                          <div id="message" class="alert alert-danger" role="alert">
+                              <%= message.error %>
+                            </div>
+                      <% } %>
+
+                      
+                      
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>T.C No</th>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Last Name</th>
+                                            <th>Login Date</th>
+                                            <th>Departure Date Time</th>
+                                            <th>Process</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+
+                                        <% timelogs.forEach(timelog => { %>
+                                            <tr>
+                                                <td><%= timelog.id %></td>
+                                                <td><a href="/employee/edit/<%= timelog.tckn %>"><%= timelog.tckn %></a></td>
+                                                <td><%= timelog.firstName %></td>
+                                                <td><%= timelog.middleName %></td>
+                                                <td><%= timelog.lastName %></td>
+                                                <td><%= new Date(timelog.loginDateTime).toLocaleDateString('tr-TR', {year: 'numeric',month: 'long',day: 'numeric', hour: "numeric", minute: "numeric"}); %></td>
+                                                <td><%= timelog.departureDateTime ? new Date(timelog.departureDateTime).toLocaleDateString('tr-TR', {year: 'numeric',month: 'long',day: 'numeric', hour: "numeric", minute: "numeric"}) : '' %></td>                                                <td>
+                                                    <a href="/timelog/edit/<%= timelog.id %>" class="btn btn-info btn-sm">
+                                                        <i class="fas fa-info-circle"></i> Edit
+                                                    </a>
+                                                    <a href="/timelog/delete/<%= timelog.id %>" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                       
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                      </div>
+
+                  
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <%- include('../partials/modal') %>
+
+    <%- include('../partials/script') %>
+    <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="/static/js/demo/datatables-demo.js"></script>
+</body>
+
+</html>
